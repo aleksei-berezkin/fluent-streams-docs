@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/aleksei-berezkin/fluent-streams-docs#readme",
   "devDependencies": {
+    "serve": "^11.3.2",
     "typedoc": "^0.19.1",
     "typescript": "^4.0.2"
   }
