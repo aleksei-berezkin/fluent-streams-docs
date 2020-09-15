@@ -1,0 +1,27 @@
+{
+  "name": "fluent-streams-docs",
+  "version": "1.0.0",
+  "description": "Generated API docs for https://github.com/aleksei-berezkin/fluent-streams",
+  "main": "docs/index.html",
+  "scripts": {
+    "doc": "typedoc ../fluent-streams/src --tsconfig ../fluent-streams/tsconfig.build.json --readme ../fluent-streams/README.md --excludeNotDocumented --mode file --theme default",
+    "nojekyll": "touch docs/.nojekyll",
+    "build": "npm-run-all doc nojekyll",
+    "serve": "serve -n docs",
+    "start": "npm-run-all build serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleksei-berezkin/fluent-streams-docs.git"
+  },
+  "author": "Aleksei Berezkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleksei-berezkin/fluent-streams-docs/issues"
+  },
+  "homepage": "https://github.com/aleksei-berezkin/fluent-streams-docs#readme",
+  "devDependencies": {
+    "typedoc": "^0.19.1",
+    "typescript": "^4.0.2"
+  }
+}
