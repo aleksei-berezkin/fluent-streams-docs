@@ -111,14 +111,20 @@ stream([<span class="hljs-string">&#x27;Aspire&#x27;</span>, <span class="hljs-s
 					over.</li>
 					<li><a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html">flatMap()</a> doesn&#39;t require you
 						to return only Stream (or Optional) — the required type is iterable<ul>
-							<li>That doesn&#39;t allow calling Stream and Optional a <a href="https://github.com/fantasyland/fantasy-land#monad">monad</a>.
-							Fluent Stream intentionally takes more practical, not puristic approach here.</li>
+							<li>This means Stream and Optional aren&#39;t pure <a href="https://github.com/fantasyland/fantasy-land#monad">monads</a>.
+							Fluent Streams intentionally takes more practical, not puristic approach here.</li>
 						</ul>
 					</li>
 					<li>The lib is optimized for arrays — much of operations work faster (and produce less garbage) if an input is array</li>
 					<li>If an operation needs to create an intermediate array (for example <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html#sort">sort()</a>),
 					the next step reuses it as a modifiable input array</li>
 				</ul>
+				<a href="#benchmarks" id="benchmarks" style="color: inherit; text-decoration: none;">
+					<h2>Benchmarks</h2>
+				</a>
+				<p>Fluent Streams is compared to the native JS Array and two other popular very similar libs. Because each lib is specific,
+					there is no the only winner, and in general all libs show reasonable performance.
+				<a href="https://github.com/aleksei-berezkin/fluent-streams-docs/tree/master/benchmarks">Here are the results</a>. </p>
 				<a href="#inspirations-and-acknowledgements" id="inspirations-and-acknowledgements" style="color: inherit; text-decoration: none;">
 					<h2>Inspirations and acknowledgements</h2>
 				</a>
