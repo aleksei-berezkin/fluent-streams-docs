@@ -19,6 +19,9 @@ ES6-iterables-compliant.
 * Special notes on the Array:
   * When the input is Array, no lifting and result-to-array conversion needed
   * When the input is Iterable, lifting is made with `[...iterable]`
+* Special notes on Lazy.js
+  * Because it doesn't support iterables, custom generator is used on its place, created with
+  [Sequence.define](http://danieltao.com/lazy.js/docs/#Sequence-define)
 
 ## The legend
 ⭐ The fastest  
