@@ -25,7 +25,10 @@ console.log('Output file is ' + outFile);
 fs.mkdirSync(path.dirname(outFile), {
     recursive: true,
 });
-fs.writeFileSync(outFile, `# Benchmarks\n${legend}\n\n`);
+
+fs.copyFileSync(path.resolve('src', 'benchmarks', 'util', 'intro.md'), outFile);
+
+fs.appendFileSync(outFile, `${legend}\n\n`);
 
 [at, append, appendAll, butLast, distinct, filter, find, flatMap, join, map, reduce, sortAt, sortMap].forEach(benchmark =>
     fs.appendFileSync(outFile, benchmarkSection(benchmark()))
