@@ -7,7 +7,7 @@ import Sequence, { asSequence } from 'sequency';
 import Lazy from 'lazy.js';
 import { asIterable } from './asIterable';
 import { LazyGen } from './lazyGen';
-import { Lib, parseName, Result, toName } from './result';
+import { libs, parseName, Result, toName } from './result';
 
 const inputAsItr = [false, true];
 
@@ -31,7 +31,7 @@ export function benchmark(
             },
         };
     
-        genInputs().forEach(({data: a, run}) => inputAsItr.forEach(asItr => (Object.keys(fns) as Lib[]).forEach(lib => {
+        libs.forEach(lib => inputAsItr.forEach(asItr => genInputs().forEach(({a, run}) => {
             const runFn
                 = lib === 'str' ? () => fns[lib](stream(asItr ? asIterable(a) : a), a.length)
                 : lib === 'arr' ? () => fns[lib](asItr ? [...asIterable(a)] : a, a.length, asItr)
