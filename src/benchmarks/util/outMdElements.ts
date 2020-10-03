@@ -4,8 +4,6 @@ import { prettyPrint } from './prettyPrint';
 import { inputN } from './genInput';
 import { first, second, third } from './emojis';
 
-export const legend = `## The legend\n${first} The fastest  \n${second} Second place  \n${third} Third place\n\nNumbers are operations per second (hz).\n\n`;
-
 export const benchmarkSection = (r: Result) => `## ${r.name}\n${inputs.map(input => oneInputTable(r.res, input)).join('\n')}\n`
 
 const oneInputTable = (res: Result['res'], input: Input) =>
