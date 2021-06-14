@@ -86,10 +86,18 @@
 				</a>
 				<p>Fluent Streams lib is distributed compiled to ES5, so no additional transpilation needed, however it needs the following polyfills in older environments:</p>
 				<ul>
+					<li>Array.isArray()</li>
+					<li>Array.prototype.forEach()</li>
+					<li>Array.prototype[@@iterator]()</li>
+					<li>Map</li>
+					<li>Object.keys()</li>
+					<li>Set</li>
 					<li>Symbol</li>
 					<li>Symbol.iterator</li>
-					<li>Map</li>
-					<li>Set</li>
+				</ul>
+				<p>Optionally:</p>
+				<ul>
+					<li>Promise.all — only for <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html#awaitall">Stream.awaitAll()</a></li>
 				</ul>
 				<a href="#use" id="use" style="color: inherit; text-decoration: none;">
 					<h3>Use</h3>
@@ -118,6 +126,7 @@ stream([<span class="hljs-string">&#x27;Aspire&#x27;</span>, <span class="hljs-s
 				</a>
 				<p>The lib is not the first to provide such a functionality. However, there are things specific to the lib:</p>
 				<ul>
+					<li>Quite small: 18.2 kB minified, 4.0 kB gzipped <a href="https://bundlephobia.com/package/fluent-streams">as per Bundlephobia</a></li>
 					<li>There is Optional. While some people assume it just to be a boilerplate, it provides the means to get back to stream
 						with <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/optional.html#flatmaptostream">flatMapToStream()</a>
 					without breaking a fluent pipeline.</li>
@@ -131,13 +140,13 @@ stream([<span class="hljs-string">&#x27;Aspire&#x27;</span>, <span class="hljs-s
 					</li>
 					<li>The lib is optimized for arrays — much of operations work faster (and produce less garbage) if an input is an array</li>
 					<li>If an operation needs to create an intermediate array (for example <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html#sort">sort()</a>),
-					the next step reuses it as a modifiable input array</li>
+					the next step reuses it as a modifiable input array, applying above mentioned optimizations</li>
 					<li>The lib is very heavily tested<ul>
 							<li>Much of edge cases like empty or null/undefined inputs are thoroughly checked</li>
 							<li>Methods with randomicity are checked to yield an even distribution</li>
-							<li>Each test runs multiple times, and these runs include: consecutive executions of the same stream (optional),
-								modifying inputs between runs, querying iterator after exhaustion, using different stream implementations
-							in multiple combinations — everything to make sure stream fully obeys its own contract and iteration protocol.</li>
+							<li>Each test runs multiple times, and these runs include: consecutive executions of the same stream (optional);
+								modifying inputs between runs; querying iterator after exhaustion; using different stream implementations
+							in multiple combinations; and many other checks.</li>
 						</ul>
 					</li>
 				</ul>
