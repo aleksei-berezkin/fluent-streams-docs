@@ -4,7 +4,7 @@ import { prettyPrint } from './prettyPrint';
 import { inputN } from './genInput';
 import { first, second, third } from './emojis';
 
-export const benchmarkSection = (r: Result) => `## ${r.name}\n${inputs.map(input => oneInputTable(r.res, input)).join('\n')}\n`
+export const benchmarkSection = (r: Result) => `## ${r.name}\n${r.note}${r.note ? '\n' : ''}${inputs.map(input => oneInputTable(r.res, input)).join('\n')}\n`
 
 const oneInputTable = (res: Result['res'], input: Input) =>
     `### Input is ${input === 'arr' ? 'array' : 'iterable'}\n${table(res[input])}\n`
@@ -31,7 +31,7 @@ const libName = (lib: Lib) =>
     : (() => { throw new Error() })();
 
 const hzRow = (
-    hz: {[n: number]: number},  // TODO hz, score
+    hz: {[n: number]: number},
     lib: Lib,
     nToTop: {[n: number]: {[lib in Lib]: number}},
 ) => entryStream(hz).map(([n, v]) => decorate(prettyPrint(v), nToTop[n][lib])).join(' | ');

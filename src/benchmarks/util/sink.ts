@@ -1,6 +1,6 @@
 const justConst = Date.now() / 1e12;
 
-export function sink(a: number[] | number | string | { toArray(): number[] } | undefined | null): number {
+export function sink(a: number[] | number[][] | number | string | { toArray(): number[] | number[][] } | undefined | null): number {
     if (a == null) {
         return .1;
     }
@@ -10,14 +10,18 @@ export function sink(a: number[] | number | string | { toArray(): number[] } | u
     }
 
     if (typeof a === 'string') {
-        return a.length + a.length ? a.charCodeAt(0) : .2;
+        return a.length ? a.charCodeAt(Math.floor(a.length / 2)) : .2;
     }
 
-    if (!Array.isArray(a)) {
-        a = a.toArray();
+    const arr = Array.isArray(a) ? a : a.toArray();
+
+    if (!arr.length) {
+        return justConst;
     }
 
-    return a.length
-        ? (a[0] - a[Math.floor(a.length / 2)] + a[a.length - 1])
-        : justConst;
+    const arr0 = arr[0];
+    const arr1 = arr[Math.floor(arr.length / 2)];
+    const arr2 = arr[arr.length - 1];
+
+    return sink(arr0) - 2 * sink(arr1) + sink(arr2);
 }

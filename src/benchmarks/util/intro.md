@@ -37,7 +37,8 @@ As per [Bundlephobia](https://bundlephobia.com/). Polyfills are not included.
 
 | Lib | Minified | Gzipped |
 |-----|----------|---------|
-| Fluent Streams | 18.3kB 🌠 | 4.0kB 🌠 |
+| Fluent Streams | 18.2kB 🌠 | 4.0kB 🌠 |
 | Array | 0 ⭐ | 0 ⭐ |
 | Sequency | 25.7kB ✨ | 4.4kB ✨ |
 | Lazy.js | 50.4kB | 10kB |
+

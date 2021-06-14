@@ -11,6 +11,8 @@ import map from './map';
 import reduce from './reduce';
 import sortAt from './sort.at';
 import sortMap from './sort.map';
+import takeLast from './takeLast';
+import zipWithIndex from './zipWithIndex';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as process from 'process';
@@ -28,6 +30,6 @@ fs.mkdirSync(path.dirname(outFile), {
 
 fs.copyFileSync(path.resolve('src', 'benchmarks', 'util', 'intro.md'), outFile);
 
-[at, append, appendAll, butLast, distinct, filter, find, flatMap, join, map, reduce, sortAt, sortMap].forEach(benchmark =>
+[at, append, appendAll, butLast, distinct, filter, find, flatMap, join, map, reduce, sortAt, sortMap, takeLast, zipWithIndex].forEach(benchmark =>
     fs.appendFileSync(outFile, benchmarkSection(benchmark()))
 );

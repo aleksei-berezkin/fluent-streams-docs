@@ -11,35 +11,37 @@ import { libs, parseName, Result, toName } from './result';
 
 const inputAsItr = [false, true];
 
-export function benchmark(
+export function benchmark(p: {
     name: string,
+    note?: string,
     fns: {
-        str: (input: Stream<number>, n: number) => Stream<number> | number | string | undefined,
-        arr: (input: number[], n: number, canModify: boolean) => number[] | number | string | undefined,
-        seq: (input: Sequence<number>, n: number) => Sequence<number> | number | null | string | undefined,
-        laz: (input: ReturnType<typeof Lazy>, n: number) => {toArray: () => number[]} | number | string | undefined,
+        str: (input: Stream<number>, n: number) => Stream<number | number[]> | number | string | undefined,
+        arr: (input: number[], n: number, canModify: boolean) => number[] | number[][] | number | string | undefined,
+        seq: (input: Sequence<number>, n: number) => Sequence<number | number[]> | number | null | string | undefined,
+        laz: (input: ReturnType<typeof Lazy>, n: number) => {toArray: () => number[] | number[][]} | number | string | undefined,
     },
-): () => Result {
+}): () => Result {
     return () => {
         let suite = new Benchmark.Suite();
         let collector = 0;
         const result: Result = {
-            name,
+            name: p.name,
             res: {
                 arr: {str: {}, arr: {}, seq: {}, laz: {}},
                 itr: {str: {}, arr: {}, seq: {}, laz: {}},
             },
+            note: p.note ?? '',
         };
     
         libs.forEach(lib => inputAsItr.forEach(asItr => genInputs().forEach(({a, run}) => {
             const runFn
-                = lib === 'str' ? () => fns[lib](stream(asItr ? asIterable(a) : a), a.length)
-                : lib === 'arr' ? () => fns[lib](asItr ? [...asIterable(a)] : a, a.length, asItr)
-                : lib === 'seq' ? () => fns[lib](asSequence(asItr ? asIterable(a) : a), a.length)
-                : lib === 'laz' ? () => fns[lib](asItr ? LazyGen(a) : Lazy(a), a.length)
+                = lib === 'str' ? () => p.fns[lib](stream(asItr ? asIterable(a) : a), a.length)
+                : lib === 'arr' ? () => p.fns[lib](asItr ? [...asIterable(a)] : a, a.length, asItr)
+                : lib === 'seq' ? () => p.fns[lib](asSequence(asItr ? asIterable(a) : a), a.length)
+                : lib === 'laz' ? () => p.fns[lib](asItr ? LazyGen(a) : Lazy(a), a.length)
                 : undefined as any;
             return suite = suite.add(
-                toName(lib, asItr ? 'itr' : 'arr', a.length, name, run),
+                toName(lib, asItr ? 'itr' : 'arr', a.length, p.name, run),
                 () => collector += sink(runFn()),
             );
         })));

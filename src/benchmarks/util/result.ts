@@ -22,7 +22,8 @@ export type Result = {
                 [n: number]: number,
             }
         }
-    }
+    },
+    note: string,
 };
 
 export function toName(lib: Lib, input: Input, n: number, name: string, run: InputData['run']) {
