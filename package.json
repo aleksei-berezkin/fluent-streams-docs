@@ -5,8 +5,7 @@
   "main": "docs/index.html",
   "scripts": {
     "doc": "typedoc ../fluent-streams/src --tsconfig ../fluent-streams/tsconfig.json --readme ../fluent-streams/README.md --excludeNotDocumented --theme default",
-    "nojekyll": "touch docs/.nojekyll",
-    "build": "npm-run-all doc nojekyll",
+    "build": "npm-run-all doc",
     "serve": "serve -n docs",
     "start": "npm-run-all build serve",
     "test": "jest",
