@@ -1,7 +1,7 @@
 import { benchmark } from './util/benchmark';
 
 export default benchmark({
-    name: 'appendAll',
+    name: 'concatAll',
     fns: {
         str: s => s.concatAll([1.1, 4.2, -.4]),
         arr: a => a.concat(1.1, 4.2, -.4),
