@@ -4,7 +4,7 @@
   "description": "Generated API docs for https://github.com/aleksei-berezkin/fluent-streams",
   "main": "docs/index.html",
   "scripts": {
-    "doc": "typedoc ../fluent-streams/src --tsconfig ../fluent-streams/tsconfig.json --readme ../fluent-streams/README.md --excludeNotDocumented --mode file --theme default",
+    "doc": "typedoc ../fluent-streams/src --tsconfig ../fluent-streams/tsconfig.json --readme ../fluent-streams/README.md --excludeNotDocumented --theme default",
     "nojekyll": "touch docs/.nojekyll",
     "build": "npm-run-all doc nojekyll",
     "serve": "serve -n docs",
@@ -37,7 +37,7 @@
     "sequency": "^0.19.2",
     "serve": "^11.3.2",
     "ts-jest": "^26.4.0",
-    "typedoc": "^0.19.1",
-    "typescript": "^4.0.2"
+    "typedoc": "^0.27.3",
+    "typescript": "^5.7.2"
   }
 }

@@ -1,237 +1,60 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>fluent-streams</title>
-	<meta name="description" content="Documentation for fluent-streams">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">fluent-streams</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>fluent-streams</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#the-project-is-deprecated" id="the-project-is-deprecated" style="color: inherit; text-decoration: none;">
-					<h1>The project is deprecated</h1>
-				</a>
-				<p>Now, with JS Array getting more and more powerful, especially with upcoming <code>groupBy()</code> and <code>at()</code> methods, projects like this become unneeded. Please use standard APIs.</p>
-				<p>Below is the original README.</p>
-				<a href="#fluent-streams" id="fluent-streams" style="color: inherit; text-decoration: none;">
-					<h1>Fluent Streams</h1>
-				</a>
-				<p><a href="https://travis-ci.org/github/aleksei-berezkin/fluent-streams"><img src="https://travis-ci.org/aleksei-berezkin/fluent-streams.svg?branch=master" alt="Travis CI"></a>
-					<a href="https://www.npmjs.com/package/fluent-streams"><img src="https://img.shields.io/npm/v/fluent-streams.svg" alt="NPM version"></a>
-				<a href="https://aleksei-berezkin.github.io/fluent-streams-docs/"><img src="https://img.shields.io/badge/docs-available-44cc11.svg" alt="Read the docs"></a></p>
-				<p>Fluent Streams is a JavaScript and TypeScript library providing rich API for lazy iterables (arrays, sets, etc) processing.
-					The main construct is a <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html">Stream</a>
-					which is a thin stateless wrapper over an iterable; there is also an
-				<a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/optional.html">Optional</a> modeling existing or lacking value.</p>
-				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
-					<h2>Getting started</h2>
-				</a>
-				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
-					<h3>Install</h3>
-				</a>
-				<pre><code class="language-bash">npm i fluent-streams</code></pre>
-				<a href="#add-polyfills" id="add-polyfills" style="color: inherit; text-decoration: none;">
-					<h3>Add polyfills</h3>
-				</a>
-				<p>Fluent Streams lib is distributed compiled to ES5, so no additional transpilation needed, however it needs the following polyfills in older environments:</p>
-				<ul>
-					<li>Array.isArray()</li>
-					<li>Array.prototype.forEach()</li>
-					<li>Array.prototype[@@iterator]()</li>
-					<li>Map</li>
-					<li>Object.keys()</li>
-					<li>Set</li>
-					<li>Symbol</li>
-					<li>Symbol.iterator</li>
-				</ul>
-				<p>Optionally:</p>
-				<ul>
-					<li>Promise.all — only for <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html#awaitall">Stream.awaitAll()</a></li>
-				</ul>
-				<a href="#use" id="use" style="color: inherit; text-decoration: none;">
-					<h3>Use</h3>
-				</a>
-				<p>To create or generate a stream or an optional use one of <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/globals.html">factory functions</a>;
-					the most generic is <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/globals.html#stream">stream()</a> which
-				creates a stream from any iterable.</p>
-				<p>Fluent Streams exports all functions and interfaces by name from index files,
-				so you import everything with <code>import { ... } from &#39;fluent-streams&#39;</code>.</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { stream } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fluent-streams&#x27;</span>;
+<!DOCTYPE html><html class="default" lang="en" data-base="."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>fluent-streams</title><meta name="description" content="Documentation for fluent-streams"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">fluent-streams</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>fluent-streams</h1></div><div class="tsd-panel tsd-typography"><a id="fluent-streams" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Fluent Streams<a href="#fluent-streams" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p><a href="https://travis-ci.org/github/aleksei-berezkin/fluent-streams" target="_blank" class="external"><img src="https://travis-ci.org/aleksei-berezkin/fluent-streams.svg?branch=master" alt="Travis CI"></a>
+<a href="https://www.npmjs.com/package/fluent-streams" target="_blank" class="external"><img src="https://img.shields.io/npm/v/fluent-streams.svg" alt="NPM version"></a>
+<a href="https://aleksei-berezkin.github.io/fluent-streams-docs/" target="_blank" class="external"><img src="https://img.shields.io/badge/docs-available-44cc11.svg" alt="Read the docs"></a></p>
+<p>Fluent Streams is a JavaScript and TypeScript library offering a rich API for processing lazy iterables (e.g., arrays, sets, and more).</p>
+<p>The core concept is the <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html" target="_blank" class="external">Stream</a>, a lightweight, stateless wrapper around an iterable. Additionally, the library includes <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/optional.html" target="_blank" class="external">Optional</a>, a construct for representing a value that may or may not exist.</p>
+<a id="getting-started" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Getting started<a href="#getting-started" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="install" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Install<a href="#install" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">i</span><span class="hl-1"> </span><span class="hl-2">fluent-streams</span>
+</code><button type="button">Copy</button></pre>
 
-stream([<span class="hljs-string">&#x27;Aspire&#x27;</span>, <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-string">&#x27;inspire&#x27;</span>, <span class="hljs-string">&#x27;before&#x27;</span>, <span class="hljs-string">&#x27;we&#x27;</span>, <span class="hljs-string">&#x27;expire&#x27;</span>])
-    .flatMap(<span class="hljs-function"><span class="hljs-params">word</span> =&gt;</span> word)
-    .groupBy(<span class="hljs-function"><span class="hljs-params">char</span> =&gt;</span> char)
-    .map(<span class="hljs-function">(<span class="hljs-params">[char, chars]</span>) =&gt;</span> ([char, chars.length]))
-    .sortBy(<span class="hljs-function">(<span class="hljs-params">[_, count]</span>) =&gt;</span> -count)
-    .take(<span class="hljs-number">3</span>)
-    .toArray()     <span class="hljs-comment">// =&gt; [[&#x27;e&#x27;, 7], [&#x27;i&#x27;, 4], [&#x27;r&#x27;, 4]]</span></code></pre>
-				<a href="#learn" id="learn" style="color: inherit; text-decoration: none;">
-					<h3>Learn</h3>
-				</a>
-				<p>All exported members are documented with TSDoc. Docs are also <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/">available online</a>.
-				The concept of stream and its main properties are described in <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html">Stream interface documentation</a>.</p>
-				<a href="#why-fluent-streams" id="why-fluent-streams" style="color: inherit; text-decoration: none;">
-					<h2>Why Fluent Streams</h2>
-				</a>
-				<p>The lib is not the first to provide such a functionality. However, there are things specific to the lib:</p>
-				<ul>
-					<li>Quite small: 18.6 kB minified, 4.1 kB gzipped <a href="https://bundlephobia.com/package/fluent-streams">as per Bundlephobia</a></li>
-					<li>There is Optional. While some people assume it just to be a boilerplate, it provides the means to get back to stream
-						with <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/optional.html#flatmaptostream">flatMapToStream()</a>
-					without breaking a fluent pipeline.</li>
-					<li>Stream and Optional seamlessly interoperate with ES6 iterables — they are iterables themselves, and may be iterated
-					over.</li>
-					<li>Stream uses similar names and, where possible, signatures of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">ES Array methods</a>
-					— it&#39;s easy to embed Fluent Streams into existing code as well as get rid of the lib.</li>
-					<li>The lib is optimized for arrays — much of operations work faster (and produce less garbage) if an input is an array.</li>
-					<li>The lib is very heavily tested.</li>
-				</ul>
-				<a href="#benchmarks" id="benchmarks" style="color: inherit; text-decoration: none;">
-					<h2>Benchmarks</h2>
-				</a>
-				<p>Fluent Streams is compared to the native JS Array and two other popular very similar libs. Because each lib is specific,
-					there is no the only winner, and in general all libs show reasonable performance.
-					<a href="https://github.com/aleksei-berezkin/fluent-streams-docs/tree/master/benchmarks">Results are here</a>,
-				and <a href="https://github.com/aleksei-berezkin/fluent-streams-docs/tree/master/src/benchmarks">benchmarks are here</a>. </p>
-				<a href="#inspirations-and-acknowledgements" id="inspirations-and-acknowledgements" style="color: inherit; text-decoration: none;">
-					<h2>Inspirations and acknowledgements</h2>
-				</a>
-				<p>The following great libs influenced Fluent Streams the most:</p>
-				<ul>
-					<li><a href="https://ramdajs.com/">Ramda</a></li>
-					<li><a href="https://github.com/emmanueltouzery/prelude-ts">prelude-ts</a></li>
-					<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">Java Streams</a></li>
-					<li><a href="https://github.com/winterbe/sequency">Sequency</a></li>
-					<li><a href="http://danieltao.com/lazy.js/">Lazy.js</a></li>
-					<li><a href="https://rxjs-dev.firebaseapp.com/">RxJS</a></li>
-				</ul>
-				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-					<h2>License</h2>
-				</a>
-				<p>The library is provided under the ISC license.  </p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="interfaces/optional.html" class="tsd-kind-icon">Optional</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="interfaces/stream.html" class="tsd-kind-icon">Stream</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#abc" class="tsd-kind-icon">abc</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#continually" class="tsd-kind-icon">continually</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#entrystream" class="tsd-kind-icon">entry<wbr>Stream</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#optional" class="tsd-kind-icon">optional</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#optionalofnullable" class="tsd-kind-icon">optional<wbr>OfNullable</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#range" class="tsd-kind-icon">range</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#same" class="tsd-kind-icon">same</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#stream" class="tsd-kind-icon">stream</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#streamfrommodifiable" class="tsd-kind-icon">stream<wbr>From<wbr>Modifiable</a>
-					</li>
-					<li class=" tsd-kind-function tsd-has-type-parameter">
-						<a href="globals.html#streamof" class="tsd-kind-icon">stream<wbr>Of</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<a id="use" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Use<a href="#use" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>To create or generate a <code>Stream</code> or an <code>Optional</code>, use one of the available <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/globals.html" target="_blank" class="external">factory functions</a>. The most generic option is <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/globals.html#stream" target="_blank" class="external"><code>stream()</code></a>, which creates a stream from any iterable.</p>
+<pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">stream</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;fluent-streams&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-0">stream</span><span class="hl-1">([</span><span class="hl-2">&#39;Aspire&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;to&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;inspire&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;before&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;we&#39;</span><span class="hl-1">, </span><span class="hl-2">&#39;expire&#39;</span><span class="hl-1">])</span><br/><span class="hl-1">    .</span><span class="hl-0">flatMap</span><span class="hl-1">(</span><span class="hl-4">word</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-4">word</span><span class="hl-1">)</span><br/><span class="hl-1">    .</span><span class="hl-0">groupBy</span><span class="hl-1">(</span><span class="hl-4">char</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> </span><span class="hl-4">char</span><span class="hl-1">)</span><br/><span class="hl-1">    .</span><span class="hl-0">map</span><span class="hl-1">(([</span><span class="hl-4">char</span><span class="hl-1">, </span><span class="hl-4">chars</span><span class="hl-1">]) </span><span class="hl-5">=&gt;</span><span class="hl-1"> ([</span><span class="hl-4">char</span><span class="hl-1">, </span><span class="hl-4">chars</span><span class="hl-1">.</span><span class="hl-4">length</span><span class="hl-1">]))</span><br/><span class="hl-1">    .</span><span class="hl-0">sortBy</span><span class="hl-1">(([</span><span class="hl-4">_</span><span class="hl-1">, </span><span class="hl-4">count</span><span class="hl-1">]) </span><span class="hl-5">=&gt;</span><span class="hl-1"> -</span><span class="hl-4">count</span><span class="hl-1">)</span><br/><span class="hl-1">    .</span><span class="hl-0">take</span><span class="hl-1">(</span><span class="hl-6">3</span><span class="hl-1">)</span><br/><span class="hl-1">    .</span><span class="hl-0">toArray</span><span class="hl-1">()     </span><span class="hl-7">// =&gt; [[&#39;e&#39;, 7], [&#39;i&#39;, 4], [&#39;r&#39;, 4]]</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The documentation is <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/" target="_blank" class="external">available online</a>.</p>
+<a id="add-polyfills" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Add Polyfills<a href="#add-polyfills" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Fluent Streams relies on <a href="https://web.dev/baseline" target="_blank" class="external">widely available</a> ES6+ features, such as generators, spread operations, and private properties. The library is shipped <strong>untranspiled</strong> to ES5.</p>
+<blockquote>
+<p><strong>Why?</strong> These features have concise syntax, helping minimize the bundle size.</p>
+</blockquote>
+<p>However, it is possible to use the library in an ES5 environment by transpiling it to ES5 and adding the following polyfills:</p>
+<ul>
+<li><code>Array.isArray()</code></li>
+<li><code>Array.prototype.forEach()</code></li>
+<li><code>Array.prototype[@@iterator]()</code></li>
+<li><code>Map</code></li>
+<li><code>Object.keys()</code></li>
+<li><code>Set</code></li>
+<li><code>Symbol</code></li>
+<li><code>Symbol.iterator</code></li>
+</ul>
+<p><strong>Optionally:</strong></p>
+<ul>
+<li><code>Promise.all</code> — required only for <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/stream.html#awaitall" target="_blank" class="external"><code>Stream.awaitAll()</code></a>.</li>
+</ul>
+<a id="why-fluent-streams" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Why Fluent Streams<a href="#why-fluent-streams" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The lib is not the first to provide such a functionality. However, there are things specific to the lib:</p>
+<ul>
+<li>Quite small: 18.6 kB minified, 4.1 kB gzipped <a href="https://bundlephobia.com/package/fluent-streams" target="_blank" class="external">as per Bundlephobia</a></li>
+<li>There is Optional. While some people assume it just to be a boilerplate, it provides the means to get back to stream
+with <a href="https://aleksei-berezkin.github.io/fluent-streams-docs/interfaces/optional.html#flatmaptostream" target="_blank" class="external">flatMapToStream()</a>
+without breaking a fluent pipeline.</li>
+<li>Stream and Optional seamlessly interoperate with ES6 iterables — they are iterables themselves, and may be iterated
+over.</li>
+<li>Stream uses similar names and, where possible, signatures of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank" class="external">ES Array methods</a>
+— it's easy to embed Fluent Streams into existing code as well as get rid of the lib.</li>
+<li>The lib is optimized for arrays — much of operations work faster (and produce less garbage) if an input is an array.</li>
+<li>The lib is very heavily tested.</li>
+</ul>
+<a id="benchmarks" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Benchmarks<a href="#benchmarks" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Fluent Streams is compared to the native JS Array and two other popular very similar libs. Because each lib is specific,
+there is no the only winner, and in general all libs show reasonable performance.
+<a href="https://github.com/aleksei-berezkin/fluent-streams-docs/tree/master/benchmarks" target="_blank" class="external">Results are here</a>,
+and <a href="https://github.com/aleksei-berezkin/fluent-streams-docs/tree/master/src/benchmarks" target="_blank" class="external">benchmarks are here</a>.</p>
+<a id="inspirations-and-acknowledgements" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Inspirations and acknowledgements<a href="#inspirations-and-acknowledgements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The following great libs influenced Fluent Streams the most:</p>
+<ul>
+<li><a href="https://ramdajs.com/" target="_blank" class="external">Ramda</a></li>
+<li><a href="https://github.com/emmanueltouzery/prelude-ts" target="_blank" class="external">prelude-ts</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html" target="_blank" class="external">Java Streams</a></li>
+<li><a href="https://github.com/winterbe/sequency" target="_blank" class="external">Sequency</a></li>
+<li><a href="http://danieltao.com/lazy.js/" target="_blank" class="external">Lazy.js</a></li>
+<li><a href="https://rxjs-dev.firebaseapp.com/" target="_blank" class="external">RxJS</a></li>
+</ul>
+<a id="license" class="tsd-anchor"></a><h2 class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The library is provided under the ISC license.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#fluent-streams"><span>Fluent <wbr/>Streams</span></a><ul><li><a href="#getting-started"><span>Getting started</span></a></li><li><ul><li><a href="#install"><span>Install</span></a></li><li><a href="#use"><span>Use</span></a></li><li><a href="#add-polyfills"><span>Add <wbr/>Polyfills</span></a></li></ul></li><li><a href="#why-fluent-streams"><span>Why <wbr/>Fluent <wbr/>Streams</span></a></li><li><a href="#benchmarks"><span>Benchmarks</span></a></li><li><a href="#inspirations-and-acknowledgements"><span>Inspirations and acknowledgements</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html" class="current">fluent-streams</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

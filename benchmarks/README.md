@@ -1,43 +1,48 @@
 # Benchmarks
 
-## Libraries compared in this benchmarks
-* Fluent Streams — build on ES6 iterables, optimized for arrays
-* JavaScript [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
-Unlike all other libs it's not lazy; however, thanks to native support, it's usually quite fast.
-* [Sequency](https://github.com/winterbe/sequency) — like Fluent Streams it's built on iterables;
-its main idea is simplicity: there are not so much code, and as a result it's very simple.
-* [Lazy.js](https://github.com/dtao/lazy.js) — inspired by [Underscore](http://underscorejs.org/) and
-[Lodash](https://lodash.com/). It's very fast but this comes with the huge price: the lib is not
-ES6-iterables-compliant.
+## Libraries Compared in These Benchmarks  
 
-## What benchmarks contain
-* All benchmarks include:
-  * Lifting a native structure (Array or Iterable) to the wrapper structure (Stream, Sequence etc)
-  * Intermediate operation being benchmarked (`filter()`, `map()`)
-  * Conversion to an array
-  * Simple `O(1)` operation on the result array
-* Special notes on the Array:
-  * When the input is an Array, no lifting and result-to-array conversion needed
-  * When the input is an Iterable, lifting is made with `[...iterable]`
-* Special notes on Lazy.js
-  * Because it doesn't support iterables, custom generator created with
-  [Sequence.define](http://danieltao.com/lazy.js/docs/#Sequence-define) is used
+- **Fluent Streams** — Built on ES6 iterables and optimized for arrays.  
+- **JavaScript [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** — Unlike the other libraries, it is not lazy. However, thanks to native support, it is usually very fast.  
+- **[Sequency](https://github.com/winterbe/sequency)** — Like Fluent Streams, it is built on iterables but does not use generators. As a result, it is slightly faster, though its bundle size is larger.  
+- **[Lazy.js](https://github.com/dtao/lazy.js)** — Inspired by [Underscore](http://underscorejs.org/) and [Lodash](https://lodash.com/). While very fast, it comes with a significant tradeoff: the library is not compliant with ES6 iterables.  
 
-## The legend
-⭐ The fastest  
-🌠 Second place  
-✨ Third place
+## What the Benchmarks Include  
 
-Bundle size is in kilobytes, the less the better.
+- **All benchmarks include:**  
+  - Lifting a native structure (`Array` or `Iterable`) into a wrapper structure (e.g., `Stream`, `Sequence`, etc.).
+  - Benchmarking an intermediate operation (e.g., `filter()`, `map()`).
+  - Converting the result back to an array.
+  - Performing a simple `O(1)` operation on the resulting array.
+- **Special notes on `Array`:**
+  - When the input is an `Array`, no lifting or result-to-array conversion is required.
+  - When the input is an `Iterable`, lifting is performed using `[...iterable]`.
+- **Special notes on Lazy.js:**
+  - Since Lazy.js does not support iterables, a custom generator is created using
+    [`Sequence.define`](http://danieltao.com/lazy.js/docs/#Sequence-define).
 
-For benchmarks numbers are operations per second (hz). The more the better.
+## Environment used for these benchmarks  
+
+- Apple M1  
+- Node.js 22.8  
+
+## Legend  
+
+- ⭐ The fastest
+- 🌠 Second place
+- ✨ Third place
+
+Bundle sizes are measured in kilobytes — smaller is better.  
+
+Benchmark results are expressed in operations per second (Hz) — higher is better.  
 
 ## Bundle size
+
 As per [Bundlephobia](https://bundlephobia.com/). Polyfills are not included.
 
 | Lib | Minified | Gzipped |
 |-----|----------|---------|
-| Fluent Streams | 18.6kB 🌠 | 4.1kB 🌠 |
+| Fluent Streams | 8.2kB 🌠 | 2.5kB 🌠 |
 | Array | 0 ⭐ | 0 ⭐ |
 | Sequency | 25.7kB ✨ | 4.4kB ✨ |
 | Lazy.js | 50.4kB | 10kB |
@@ -46,255 +51,256 @@ As per [Bundlephobia](https://bundlephobia.com/). Polyfills are not included.
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 17.3M | 17.1M | 16.7M ✨ | 16.4M ✨ | 16.6M ✨ | 17.6M ✨ |
-| Array | 74.5M ⭐ | 63.9M ⭐ | 45.7M ⭐ | 66.8M ⭐ | 45.0M ⭐ | 46.3M ⭐ |
-| Sequency | 43.4M ✨ | 29.1M ✨ | 10.8M | 1.61M | 186k | 18.8k |
-| Lazy.js | 46.2M 🌠 | 44.7M 🌠 | 45.3M 🌠 | 44.4M 🌠 | 44.0M 🌠 | 45.2M 🌠 |
+| Fluent Streams | 1.88M | 1.71M | 1.71M | 1.71M | 1.71M ✨ | 1.71M ✨ |
+| Array | 87.0M ⭐ | 79.6M ⭐ | 80.7M ⭐ | 79.2M ⭐ | 79.5M ⭐ | 79.2M ⭐ |
+| Sequency | 72.9M ✨ | 48.8M ✨ | 17.2M ✨ | 2.42M ✨ | 260k | 26.4k |
+| Lazy.js | 84.5M 🌠 | 77.3M 🌠 | 75.0M 🌠 | 75.8M 🌠 | 74.1M 🌠 | 75.7M 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.55M | 1.48M ✨ | 1.38M ✨ | 847k 🌠 | 195k 🌠 | 22.5k 🌠 |
-| Array | 1.65M ✨ | 1.47M | 1.05M | 279k | 32.0k | 3.15k |
-| Sequency | 1.79M 🌠 | 1.69M 🌠 | 1.50M 🌠 | 790k ✨ | 159k ✨ | 16.6k ✨ |
-| Lazy.js | 7.95M ⭐ | 7.90M ⭐ | 6.07M ⭐ | 2.11M ⭐ | 311k ⭐ | 32.5k ⭐ |
+| Fluent Streams | 1.20M | 1.23M | 1.18M | 885k ✨ | 298k 🌠 | 42.3k 🌠 |
+| Array | 3.54M ✨ | 3.09M ✨ | 2.08M ✨ | 490k | 59.8k | 6.24k |
+| Sequency | 3.77M 🌠 | 3.59M 🌠 | 3.07M 🌠 | 1.36M 🌠 | 216k ✨ | 23.6k ✨ |
+| Lazy.js | 17.3M ⭐ | 17.3M ⭐ | 12.9M ⭐ | 3.61M ⭐ | 470k ⭐ | 48.3k ⭐ |
+
+## append
+### Input is array
+| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
+|---|---|---|---|---|---|---|
+| Fluent Streams | 8.42M 🌠 | 7.26M ✨ | 3.15M | 475k | 50.2k | 5.03k |
+| Array | 8.35M ✨ | 7.85M 🌠 | 5.08M 🌠 | 1.19M ⭐ | 132k ⭐ | 13.9k ⭐ |
+| Sequency | 7.38M | 6.83M | 3.33M ✨ | 490k ✨ | 50.2k ✨ | 5.39k ✨ |
+| Lazy.js | 8.72M ⭐ | 8.40M ⭐ | 5.60M ⭐ | 963k 🌠 | 95.9k 🌠 | 10.7k 🌠 |
+
+### Input is iterable
+| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
+|---|---|---|---|---|---|---|
+| Fluent Streams | 1.46M | 1.37M | 972k | 272k | 33.5k | 3.44k |
+| Array | 2.40M 🌠 | 2.24M ✨ | 1.59M ✨ | 398k ✨ | 49.1k 🌠 | 4.95k ✨ |
+| Sequency | 2.37M ✨ | 2.35M 🌠 | 1.68M 🌠 | 403k 🌠 | 48.1k ✨ | 5.29k 🌠 |
+| Lazy.js | 6.06M ⭐ | 5.79M ⭐ | 4.26M ⭐ | 1.00M ⭐ | 113k ⭐ | 12.1k ⭐ |
+
+## appendAll
+### Input is array
+| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
+|---|---|---|---|---|---|---|
+| Fluent Streams | 1.87M | 1.72M | 1.13M | 257k | 29.4k | 3.10k |
+| Array | 7.16M 🌠 | 6.56M 🌠 | 4.49M 🌠 | 1.14M 🌠 | 126k 🌠 | 13.5k 🌠 |
+| Sequency | 5.41M ✨ | 4.98M ✨ | 2.79M ✨ | 465k ✨ | 49.6k ✨ | 5.23k ✨ |
+| Lazy.js | 10.9M ⭐ | 10.7M ⭐ | 8.86M ⭐ | 2.35M ⭐ | 249k ⭐ | 27.5k ⭐ |
+
+### Input is iterable
+| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
+|---|---|---|---|---|---|---|
+| Fluent Streams | 1.28M | 1.21M | 905k | 267k | 33.3k | 3.38k |
+| Array | 2.33M 🌠 | 2.16M 🌠 | 1.55M 🌠 | 400k 🌠 | 49.6k 🌠 | 4.98k ✨ |
+| Sequency | 2.17M ✨ | 2.11M ✨ | 1.55M ✨ | 392k ✨ | 47.8k ✨ | 5.24k 🌠 |
+| Lazy.js | 4.87M ⭐ | 4.73M ⭐ | 3.65M ⭐ | 947k ⭐ | 112k ⭐ | 12.3k ⭐ |
 
 ## butLast
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 8.12M | 7.77M ✨ | 1.30M ✨ | 200k ✨ | 21.4k ✨ | 2.15k ✨ |
-| Array | 26.4M ⭐ | 25.2M ⭐ | 2.49M 🌠 | 354k 🌠 | 36.5k 🌠 | 3.72k 🌠 |
-| Sequency | 8.63M ✨ | 3.35M | 214k | 40.0k | 6.92k | 1.27k |
-| Lazy.js | 15.9M 🌠 | 15.8M 🌠 | 6.92M ⭐ | 1.26M ⭐ | 140k ⭐ | 15.4k ⭐ |
+| Fluent Streams | 14.2M | 14.1M | 3.75M ✨ | 509k ✨ | 53.1k ✨ | 5.31k ✨ |
+| Array | 46.2M ⭐ | 45.7M ⭐ | 8.02M 🌠 | 1.41M 🌠 | 150k 🌠 | 15.6k 🌠 |
+| Sequency | 23.2M 🌠 | 20.4M ✨ | 2.95M | 353k | 36.3k | 3.80k |
+| Lazy.js | 20.9M ✨ | 20.8M 🌠 | 11.0M ⭐ | 2.31M ⭐ | 240k ⭐ | 26.5k ⭐ |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.34M | 1.33M ✨ | 649k ✨ | 164k ✨ | 17.8k ✨ | 1.89k ✨ |
-| Array | 1.48M 🌠 | 1.34M 🌠 | 887k 🌠 | 274k 🌠 | 32.1k 🌠 | 3.10k 🌠 |
-| Sequency | 1.39M ✨ | 1.21M | 586k | 129k | 14.6k | 1.52k |
-| Lazy.js | 4.81M ⭐ | 3.49M ⭐ | 2.49M ⭐ | 502k ⭐ | 59.5k ⭐ | 6.06k ⭐ |
-
-## concat
-### Input is array
-| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
-|---|---|---|---|---|---|---|
-| Fluent Streams | 7.02M ⭐ | 6.45M ⭐ | 4.62M ⭐ | 758k 🌠 | 97.0k 🌠 | 10.1k 🌠 |
-| Array | 4.47M 🌠 | 4.30M 🌠 | 3.85M 🌠 | 1.89M ⭐ | 409k ⭐ | 44.3k ⭐ |
-| Sequency | 2.67M | 2.32M | 1.15M | 194k | 20.1k | 2.10k |
-| Lazy.js | 3.31M ✨ | 3.09M ✨ | 1.82M ✨ | 298k ✨ | 31.1k ✨ | 3.22k ✨ |
-
-### Input is iterable
-| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
-|---|---|---|---|---|---|---|
-| Fluent Streams | 1.23M 🌠 | 1.18M 🌠 | 939k 🌠 | 354k 🌠 | 42.9k 🌠 | 5.02k 🌠 |
-| Array | 821k | 782k | 593k | 209k ✨ | 26.2k ✨ | 2.64k ✨ |
-| Sequency | 989k ✨ | 955k ✨ | 674k ✨ | 170k | 19.2k | 2.07k |
-| Lazy.js | 1.69M ⭐ | 1.62M ⭐ | 1.32M ⭐ | 457k ⭐ | 65.7k ⭐ | 7.44k ⭐ |
-
-## concatAll
-### Input is array
-| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
-|---|---|---|---|---|---|---|
-| Fluent Streams | 1.53M | 1.36M | 845k | 165k | 17.8k | 1.88k |
-| Array | 2.51M 🌠 | 2.28M 🌠 | 1.51M 🌠 | 303k 🌠 | 34.8k 🌠 | 3.53k 🌠 |
-| Sequency | 1.83M ✨ | 1.74M ✨ | 949k ✨ | 182k ✨ | 19.4k ✨ | 2.03k ✨ |
-| Lazy.js | 6.85M ⭐ | 6.59M ⭐ | 5.03M ⭐ | 1.12M ⭐ | 141k ⭐ | 15.1k ⭐ |
-
-### Input is iterable
-| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
-|---|---|---|---|---|---|---|
-| Fluent Streams | 768k | 719k | 537k | 143k | 16.6k | 1.79k |
-| Array | 931k 🌠 | 891k 🌠 | 648k 🌠 | 208k 🌠 | 25.9k 🌠 | 2.62k 🌠 |
-| Sequency | 901k ✨ | 857k ✨ | 610k ✨ | 173k ✨ | 19.5k ✨ | 2.06k ✨ |
-| Lazy.js | 1.54M ⭐ | 1.44M ⭐ | 1.22M ⭐ | 440k ⭐ | 71.1k ⭐ | 7.58k ⭐ |
+| Fluent Streams | 1.56M | 1.52M | 984k | 245k | 29.1k | 2.95k |
+| Array | 3.38M 🌠 | 3.01M ✨ | 1.98M 🌠 | 492k 🌠 | 60.3k 🌠 | 5.89k 🌠 |
+| Sequency | 3.22M ✨ | 3.17M 🌠 | 1.52M ✨ | 287k ✨ | 33.9k ✨ | 3.62k ✨ |
+| Lazy.js | 9.79M ⭐ | 7.66M ⭐ | 5.13M ⭐ | 946k ⭐ | 94.3k ⭐ | 10.2k ⭐ |
 
 ## distinct
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 4.56M | 1.77M | 587k | 76.2k ✨ | 6.92k 🌠 | 534 🌠 |
-| Array | 8.62M ✨ | 4.54M 🌠 | 1.00M 🌠 | 136k ⭐ | 12.1k ⭐ | 760 ⭐ |
-| Sequency | 11.6M 🌠 | 2.26M ✨ | 974k ✨ | 88.5k 🌠 | 2.23k | 26.5 |
-| Lazy.js | 12.1M ⭐ | 7.20M ⭐ | 3.75M ⭐ | 35.4k | 3.18k ✨ | 180 ✨ |
+| Fluent Streams | 2.37M | 1.97M | 821k | 126k ✨ | 13.1k 🌠 | 1.07k 🌠 |
+| Array | 30.6M 🌠 | 17.9M ⭐ | 4.31M 🌠 | 388k ⭐ | 32.1k ⭐ | 2.17k ⭐ |
+| Sequency | 33.6M ⭐ | 7.45M ✨ | 2.73M ✨ | 236k 🌠 | 6.99k ✨ | 93.6 |
+| Lazy.js | 29.0M ✨ | 17.3M 🌠 | 7.49M ⭐ | 70.4k | 5.83k | 387 ✨ |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.26M | 816k | 385k ✨ | 74.6k ✨ | 7.77k 🌠 | 557 🌠 |
-| Array | 1.37M ✨ | 1.05M 🌠 | 469k 🌠 | 90.6k ⭐ | 8.66k ⭐ | 613 ⭐ |
-| Sequency | 1.55M 🌠 | 917k ✨ | 533k ⭐ | 77.4k 🌠 | 2.17k | 26.2 |
-| Lazy.js | 3.26M ⭐ | 1.58M ⭐ | 336k | 33.8k | 2.91k ✨ | 187 ✨ |
+| Fluent Streams | 1.51M | 1.33M | 732k | 130k ✨ | 13.8k 🌠 | 1.12k 🌠 |
+| Array | 3.15M ✨ | 2.66M 🌠 | 1.42M 🌠 | 217k ⭐ | 20.8k ⭐ | 1.57k ⭐ |
+| Sequency | 3.51M 🌠 | 2.45M ✨ | 1.43M ⭐ | 187k 🌠 | 6.77k ✨ | 92.7 |
+| Lazy.js | 8.76M ⭐ | 4.17M ⭐ | 833k ✨ | 63.5k | 5.92k | 361 ✨ |
 
 ## filter
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 6.13M | 5.95M ✨ | 1.18M | 294k | 34.4k ✨ | 3.24k ✨ |
-| Array | 46.5M ⭐ | 4.22M | 2.83M 🌠 | 668k 🌠 | 80.6k 🌠 | 5.69k 🌠 |
-| Sequency | 10.5M ✨ | 9.09M 🌠 | 1.49M ✨ | 346k ✨ | 30.9k | 2.97k |
-| Lazy.js | 12.5M 🌠 | 12.2M ⭐ | 6.22M ⭐ | 1.64M ⭐ | 191k ⭐ | 10.3k ⭐ |
+| Fluent Streams | 2.51M | 2.09M | 1.42M | 276k | 31.1k | 3.24k |
+| Array | 86.0M ⭐ | 11.1M ✨ | 9.18M 🌠 | 1.74M 🌠 | 206k 🌠 | 14.8k 🌠 |
+| Sequency | 32.4M ✨ | 24.2M ⭐ | 4.35M ✨ | 689k ✨ | 59.7k ✨ | 5.45k ✨ |
+| Lazy.js | 41.2M 🌠 | 22.6M 🌠 | 17.7M ⭐ | 4.64M ⭐ | 412k ⭐ | 19.9k ⭐ |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.34M | 1.30M ✨ | 726k | 241k ✨ | 26.8k | 2.77k ✨ |
-| Array | 1.61M 🌠 | 1.44M 🌠 | 911k 🌠 | 255k 🌠 | 27.4k ✨ | 2.49k |
-| Sequency | 1.53M ✨ | 1.04M | 765k ✨ | 226k | 28.1k 🌠 | 2.85k 🌠 |
-| Lazy.js | 4.77M ⭐ | 4.49M ⭐ | 2.65M ⭐ | 691k ⭐ | 75.1k ⭐ | 5.83k ⭐ |
+| Fluent Streams | 1.55M | 1.51M | 1.07M | 311k | 35.4k | 3.68k |
+| Array | 3.51M 🌠 | 2.85M 🌠 | 1.93M ✨ | 453k ✨ | 54.7k 🌠 | 4.62k ✨ |
+| Sequency | 3.49M ✨ | 2.58M ✨ | 1.93M 🌠 | 491k 🌠 | 51.4k ✨ | 4.91k 🌠 |
+| Lazy.js | 11.6M ⭐ | 11.0M ⭐ | 5.74M ⭐ | 1.22M ⭐ | 138k ⭐ | 7.88k ⭐ |
 
 ## find
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 9.19M | 8.86M | 5.38M 🌠 | 1.17M 🌠 | 158k 🌠 | 15.9k 🌠 |
-| Array | 48.5M ⭐ | 46.0M ⭐ | 36.6M ⭐ | 10.2M ⭐ | 1.52M ⭐ | 167k ⭐ |
-| Sequency | 14.8M ✨ | 10.4M ✨ | 3.15M | 432k | 52.5k | 5.33k |
-| Lazy.js | 27.2M 🌠 | 18.5M 🌠 | 5.33M ✨ | 715k ✨ | 86.9k ✨ | 8.91k ✨ |
+| Fluent Streams | 930k | 908k | 783k | 358k | 55.2k | 5.98k |
+| Array | 89.0M ⭐ | 89.3M ⭐ | 67.0M ⭐ | 16.4M ⭐ | 1.68M ⭐ | 173k ⭐ |
+| Sequency | 30.6M ✨ | 20.5M ✨ | 5.79M ✨ | 758k ✨ | 78.5k ✨ | 7.93k ✨ |
+| Lazy.js | 46.9M 🌠 | 35.9M 🌠 | 11.3M 🌠 | 1.66M 🌠 | 173k 🌠 | 17.4k 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.44M | 1.42M ✨ | 1.16M 🌠 | 505k 🌠 | 91.9k ⭐ | 9.73k ⭐ |
-| Array | 1.48M ✨ | 1.39M | 965k | 281k | 31.2k | 3.05k |
-| Sequency | 1.59M 🌠 | 1.54M 🌠 | 1.12M ✨ | 389k ✨ | 51.9k ✨ | 5.29k ✨ |
-| Lazy.js | 6.41M ⭐ | 5.62M ⭐ | 2.84M ⭐ | 518k ⭐ | 64.6k 🌠 | 6.50k 🌠 |
+| Fluent Streams | 720k | 714k | 656k | 359k | 66.3k ✨ | 7.53k ✨ |
+| Array | 3.53M 🌠 | 3.09M ✨ | 2.08M ✨ | 486k ✨ | 58.6k | 5.81k |
+| Sequency | 3.43M ✨ | 3.25M 🌠 | 2.27M 🌠 | 617k 🌠 | 76.8k 🌠 | 7.98k 🌠 |
+| Lazy.js | 15.2M ⭐ | 13.4M ⭐ | 5.92M ⭐ | 1.01M ⭐ | 109k ⭐ | 11.1k ⭐ |
 
 ## flatMap
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 4.68M | 416k | 154k ✨ | 27.7k ✨ | 3.50k ✨ | 401 ⭐ |
-| Array | 14.4M ⭐ | 849k ✨ | 137k | 14.8k | 1.48k | 139 |
-| Sequency | 9.82M ✨ | 1.60M 🌠 | 374k 🌠 | 42.1k 🌠 | 4.25k 🌠 | 350 ✨ |
-| Lazy.js | 10.5M 🌠 | 2.31M ⭐ | 408k ⭐ | 43.8k ⭐ | 4.32k ⭐ | 393 🌠 |
+| Fluent Streams | 2.49M | 1.74M | 525k | 66.9k | 6.92k | 662 |
+| Array | 30.7M ⭐ | 4.29M ✨ | 1.28M ⭐ | 154k ⭐ | 15.0k ⭐ | 1.41k ⭐ |
+| Sequency | 26.6M 🌠 | 5.09M 🌠 | 956k ✨ | 99.3k ✨ | 9.66k ✨ | 906 ✨ |
+| Lazy.js | 24.9M ✨ | 7.17M ⭐ | 1.12M 🌠 | 120k 🌠 | 11.9k 🌠 | 1.14k 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.34M | 748k ✨ | 340k ⭐ | 48.3k ⭐ | 5.03k ⭐ | 404 ⭐ |
-| Array | 1.39M ✨ | 498k | 124k | 14.7k | 1.48k | 139 |
-| Sequency | 1.48M 🌠 | 801k 🌠 | 302k 🌠 | 40.6k 🌠 | 4.18k 🌠 | 351 🌠 |
-| Lazy.js | 1.55M ⭐ | 1.02M ⭐ | 299k ✨ | 35.4k ✨ | 3.61k ✨ | 315 ✨ |
+| Fluent Streams | 1.53M | 1.18M | 468k | 66.9k | 7.01k | 656 |
+| Array | 3.16M ✨ | 1.67M ✨ | 780k 🌠 | 117k ⭐ | 12.0k ⭐ | 1.10k ⭐ |
+| Sequency | 3.38M 🌠 | 2.10M 🌠 | 717k ✨ | 97.2k 🌠 | 9.97k 🌠 | 948 🌠 |
+| Lazy.js | 5.16M ⭐ | 3.32M ⭐ | 813k ⭐ | 95.7k ✨ | 9.61k ✨ | 911 ✨ |
 
 ## join
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 12.8M | 8.57M | 1.24M | 170k | 12.2k | 397 |
-| Array | 41.8M ⭐ | 16.0M ⭐ | 2.15M ⭐ | 254k ⭐ | 17.2k ⭐ | 553 ⭐ |
-| Sequency | 25.3M 🌠 | 14.0M 🌠 | 1.50M ✨ | 199k 🌠 | 13.4k ✨ | 481 ✨ |
-| Lazy.js | 20.2M ✨ | 10.4M ✨ | 1.51M 🌠 | 187k ✨ | 15.3k 🌠 | 540 🌠 |
+| Fluent Streams | 17.7M | 13.8M | 2.77M | 331k | 27.0k | 1.06k |
+| Array | 72.5M ⭐ | 30.1M ⭐ | 4.54M ⭐ | 535k ⭐ | 37.7k ⭐ | 1.27k ⭐ |
+| Sequency | 44.2M 🌠 | 24.2M 🌠 | 3.43M ✨ | 419k ✨ | 31.1k 🌠 | 1.17k ✨ |
+| Lazy.js | 34.0M ✨ | 19.7M ✨ | 3.70M 🌠 | 449k 🌠 | 30.6k ✨ | 1.22k 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.55M | 1.41M ✨ | 716k ✨ | 164k 🌠 | 12.4k ✨ | 461 |
-| Array | 1.59M ✨ | 1.30M | 661k | 137k | 11.3k | 472 ✨ |
-| Sequency | 1.67M 🌠 | 1.48M 🌠 | 756k 🌠 | 174k ⭐ | 14.2k ⭐ | 481 🌠 |
-| Lazy.js | 4.15M ⭐ | 2.59M ⭐ | 949k ⭐ | 155k ✨ | 13.6k 🌠 | 485 ⭐ |
+| Fluent Streams | 3.44M | 3.14M ✨ | 1.58M ✨ | 295k ✨ | 26.5k ✨ | 1.05k ✨ |
+| Array | 3.47M ✨ | 2.80M | 1.45M | 263k | 22.5k | 1.04k |
+| Sequency | 3.70M 🌠 | 3.35M 🌠 | 1.70M 🌠 | 334k 🌠 | 28.6k 🌠 | 1.11k 🌠 |
+| Lazy.js | 11.0M ⭐ | 7.67M ⭐ | 2.59M ⭐ | 385k ⭐ | 29.5k ⭐ | 1.14k ⭐ |
 
 ## map
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 7.70M | 2.33M ✨ | 1.05M ✨ | 167k ✨ | 17.5k ✨ | 1.84k ✨ |
-| Array | 38.4M ⭐ | 3.69M 🌠 | 1.99M ⭐ | 347k ⭐ | 36.2k ⭐ | 3.62k ⭐ |
-| Sequency | 9.89M ✨ | 2.26M | 834k | 122k | 12.3k | 1.27k |
-| Lazy.js | 11.6M 🌠 | 5.47M ⭐ | 1.97M 🌠 | 303k 🌠 | 30.7k 🌠 | 3.11k 🌠 |
+| Fluent Streams | 11.5M | 6.72M | 2.52M | 345k ✨ | 35.9k ✨ | 3.60k ✨ |
+| Array | 71.6M ⭐ | 10.9M 🌠 | 6.23M ⭐ | 1.12M ⭐ | 122k ⭐ | 12.7k ⭐ |
+| Sequency | 31.2M ✨ | 7.69M ✨ | 2.73M ✨ | 329k | 33.0k | 3.47k |
+| Lazy.js | 33.7M 🌠 | 15.3M ⭐ | 5.30M 🌠 | 678k 🌠 | 69.3k 🌠 | 7.13k 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.35M | 912k | 628k 🌠 | 154k 🌠 | 17.0k 🌠 | 1.80k 🌠 |
-| Array | 1.57M 🌠 | 966k 🌠 | 602k ✨ | 148k ✨ | 16.4k ✨ | 1.64k ✨ |
-| Sequency | 1.45M ✨ | 938k ✨ | 533k | 117k | 12.4k | 1.30k |
-| Lazy.js | 3.15M ⭐ | 2.77M ⭐ | 1.38M ⭐ | 260k ⭐ | 27.6k ⭐ | 2.69k ⭐ |
+| Fluent Streams | 1.53M | 1.39M | 952k | 235k | 28.2k | 2.84k |
+| Array | 3.46M ✨ | 2.41M ✨ | 1.56M 🌠 | 340k 🌠 | 40.0k 🌠 | 4.00k 🌠 |
+| Sequency | 3.49M 🌠 | 2.52M 🌠 | 1.52M ✨ | 285k ✨ | 32.0k ✨ | 3.41k ✨ |
+| Lazy.js | 7.80M ⭐ | 6.69M ⭐ | 2.86M ⭐ | 420k ⭐ | 43.7k ⭐ | 4.44k ⭐ |
 
 ## reduce
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 9.92M | 9.73M | 8.40M 🌠 | 3.93M 🌠 | 678k 🌠 | 84.0k 🌠 |
-| Array | 47.6M ⭐ | 40.9M ⭐ | 33.5M ⭐ | 7.01M ⭐ | 763k ⭐ | 85.0k ⭐ |
-| Sequency | 34.0M 🌠 | 18.5M 🌠 | 5.36M ✨ | 731k ✨ | 86.4k ✨ | 8.60k ✨ |
-| Lazy.js | 16.2M ✨ | 16.5M ✨ | 4.35M | 580k | 70.0k | 7.10k |
+| Fluent Streams | 1.71M | 1.68M | 1.39M | 572k | 84.6k | 9.22k |
+| Array | 88.6M ⭐ | 78.0M ⭐ | 62.1M ⭐ | 14.1M ⭐ | 1.07M ⭐ | 105k ⭐ |
+| Sequency | 57.7M 🌠 | 33.1M ✨ | 9.62M ✨ | 1.20M ✨ | 125k ✨ | 12.8k ✨ |
+| Lazy.js | 36.3M ✨ | 35.3M 🌠 | 10.5M 🌠 | 1.32M 🌠 | 135k 🌠 | 13.7k 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.35M | 1.31M | 952k | 342k ✨ | 44.1k ✨ | 4.63k ✨ |
-| Array | 1.51M ✨ | 1.39M ✨ | 954k ✨ | 280k | 32.4k | 3.14k |
-| Sequency | 1.68M 🌠 | 1.56M 🌠 | 1.22M 🌠 | 442k ⭐ | 74.6k ⭐ | 7.84k ⭐ |
-| Lazy.js | 5.34M ⭐ | 4.49M ⭐ | 2.28M ⭐ | 420k 🌠 | 52.9k 🌠 | 5.38k 🌠 |
+| Fluent Streams | 1.16M | 1.14M | 1.01M | 471k | 78.8k ✨ | 8.98k 🌠 |
+| Array | 3.50M ✨ | 3.04M ✨ | 2.06M ✨ | 478k ✨ | 57.3k | 5.76k |
+| Sequency | 3.76M 🌠 | 3.50M 🌠 | 2.56M 🌠 | 805k ⭐ | 107k ⭐ | 11.4k ⭐ |
+| Lazy.js | 12.3M ⭐ | 9.82M ⭐ | 4.47M ⭐ | 747k 🌠 | 80.4k 🌠 | 8.13k ✨ |
 
 ## sort.at
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 4.74M | 2.70M | 670k | 46.9k ✨ | 2.29k ✨ | 110 ✨ |
-| Array | 27.3M ⭐ | 21.8M ⭐ | 1.22M ⭐ | 51.0k 🌠 | 2.46k 🌠 | 113 🌠 |
-| Sequency | 14.4M ✨ | 8.93M 🌠 | 766k ✨ | 43.6k | 2.18k | 104 |
-| Lazy.js | 27.0M 🌠 | 5.10M ✨ | 944k 🌠 | 78.7k ⭐ | 4.76k ⭐ | 350 ⭐ |
+| Fluent Streams | 1.39M | 1.30M | 719k | 83.1k | 4.27k | 215 |
+| Array | 48.2M ⭐ | 38.4M ⭐ | 2.28M 🌠 | 105k 🌠 | 4.69k 🌠 | 223 🌠 |
+| Sequency | 27.8M ✨ | 17.4M 🌠 | 1.72M ✨ | 92.9k ✨ | 4.47k ✨ | 217 ✨ |
+| Lazy.js | 45.8M 🌠 | 15.6M ✨ | 2.49M ⭐ | 143k ⭐ | 7.53k ⭐ | 551 ⭐ |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.23M | 890k | 374k | 38.0k | 2.25k | 108 ✨ |
-| Array | 1.54M 🌠 | 1.39M 🌠 | 496k 🌠 | 44.3k 🌠 | 2.32k 🌠 | 107 |
-| Sequency | 1.43M ✨ | 1.31M ✨ | 418k ✨ | 41.2k ✨ | 2.29k ✨ | 110 🌠 |
-| Lazy.js | 4.80M ⭐ | 2.75M ⭐ | 905k ⭐ | 81.1k ⭐ | 4.80k ⭐ | 356 ⭐ |
+| Fluent Streams | 995k | 965k | 608k | 84.0k ✨ | 4.23k | 214 ✨ |
+| Array | 3.48M 🌠 | 3.06M ✨ | 1.12M 🌠 | 88.7k 🌠 | 4.24k ✨ | 214 🌠 |
+| Sequency | 3.41M ✨ | 3.07M 🌠 | 1.07M ✨ | 81.4k | 4.31k 🌠 | 213 |
+| Lazy.js | 13.0M ⭐ | 7.63M ⭐ | 2.17M ⭐ | 134k ⭐ | 7.42k ⭐ | 538 ⭐ |
 
 ## sort.map
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 3.09M | 1.26M | 394k ✨ | 36.3k ✨ | 2.04k ✨ | 104 ✨ |
-| Array | 23.4M ⭐ | 3.27M ⭐ | 685k ⭐ | 45.9k 🌠 | 2.35k 🌠 | 109 🌠 |
-| Sequency | 7.14M ✨ | 1.73M ✨ | 387k | 33.5k | 1.97k | 102 |
-| Lazy.js | 8.18M 🌠 | 2.50M 🌠 | 645k 🌠 | 63.2k ⭐ | 4.16k ⭐ | 332 ⭐ |
+| Fluent Streams | 6.02M | 3.84M | 908k | 69.4k | 3.76k ✨ | 200 |
+| Array | 42.4M ⭐ | 9.53M ⭐ | 1.70M ⭐ | 96.6k 🌠 | 4.36k 🌠 | 221 🌠 |
+| Sequency | 21.2M ✨ | 5.97M ✨ | 1.02M ✨ | 70.7k ✨ | 3.76k | 202 ✨ |
+| Lazy.js | 23.1M 🌠 | 7.88M 🌠 | 1.53M 🌠 | 113k ⭐ | 6.51k ⭐ | 496 ⭐ |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.04M | 587k | 308k | 32.1k | 1.91k | 102 ✨ |
-| Array | 1.36M 🌠 | 835k 🌠 | 392k 🌠 | 39.4k 🌠 | 2.04k 🌠 | 104 🌠 |
-| Sequency | 1.32M ✨ | 807k ✨ | 331k ✨ | 32.5k ✨ | 1.94k ✨ | 97.9 |
-| Lazy.js | 2.43M ⭐ | 1.64M ⭐ | 630k ⭐ | 64.9k ⭐ | 4.19k ⭐ | 325 ⭐ |
+| Fluent Streams | 2.31M | 1.88M | 758k | 70.9k ✨ | 3.85k | 200 ✨ |
+| Array | 3.38M 🌠 | 2.41M 🌠 | 956k 🌠 | 80.6k 🌠 | 3.96k 🌠 | 208 🌠 |
+| Sequency | 3.12M ✨ | 2.24M ✨ | 774k ✨ | 69.1k | 3.87k ✨ | 199 |
+| Lazy.js | 6.95M ⭐ | 4.59M ⭐ | 1.42M ⭐ | 107k ⭐ | 6.29k ⭐ | 475 ⭐ |
 
 ## takeLast
 Sequency doesn't have this, so using withIndex().filter() instead
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 7.16M ✨ | 2.28M ✨ | 2.33M ✨ | 1.18M ✨ | 186k ✨ | 19.0k ✨ |
-| Array | 22.3M ⭐ | 4.55M 🌠 | 4.47M 🌠 | 2.46M ⭐ | 377k ⭐ | 40.6k ⭐ |
-| Sequency | 6.57M | 1.76M | 994k | 195k | 21.0k | 2.16k |
-| Lazy.js | 10.4M 🌠 | 5.41M ⭐ | 5.45M ⭐ | 2.04M 🌠 | 319k 🌠 | 33.5k 🌠 |
+| Fluent Streams | 11.8M | 7.61M ✨ | 7.61M ✨ | 3.17M ✨ | 456k ✨ | 48.1k 🌠 |
+| Array | 42.4M ⭐ | 13.0M ⭐ | 11.5M ⭐ | 7.29M ⭐ | 1.36M ⭐ | 147k ⭐ |
+| Sequency | 18.1M ✨ | 5.52M | 2.49M | 366k | 38.4k | 3.78k |
+| Lazy.js | 20.2M 🌠 | 10.9M 🌠 | 11.0M 🌠 | 3.69M 🌠 | 466k 🌠 | 46.6k ✨ |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.41M ✨ | 796k | 610k | 280k ⭐ | 38.4k ⭐ | 3.94k ⭐ |
-| Array | 1.50M 🌠 | 1.21M 🌠 | 869k 🌠 | 277k 🌠 | 33.6k 🌠 | 3.43k 🌠 |
-| Sequency | 1.37M | 852k ✨ | 610k ✨ | 181k | 21.4k | 2.27k |
-| Lazy.js | 2.31M ⭐ | 1.64M ⭐ | 1.06M ⭐ | 238k ✨ | 26.7k ✨ | 2.74k ✨ |
+| Fluent Streams | 2.76M | 2.21M ✨ | 1.95M 🌠 | 753k ⭐ | 116k ⭐ | 12.6k ⭐ |
+| Array | 3.28M 🌠 | 2.76M 🌠 | 1.90M ✨ | 487k 🌠 | 57.9k 🌠 | 5.99k 🌠 |
+| Sequency | 3.08M ✨ | 2.10M | 1.41M | 311k | 36.5k | 3.76k |
+| Lazy.js | 6.37M ⭐ | 4.14M ⭐ | 2.47M ⭐ | 399k ✨ | 42.4k ✨ | 4.34k ✨ |
 
 ## zipWithIndex
 Sequency returns {value, index}, so additional mapping to [value, index] needed
 ### Input is array
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 8.40M ✨ | 2.14M ✨ | 954k 🌠 | 300k 🌠 | 36.4k 🌠 | 3.60k 🌠 |
-| Array | 39.8M ⭐ | 3.45M ⭐ | 1.59M ⭐ | 673k ⭐ | 104k ⭐ | 10.4k ⭐ |
-| Sequency | 7.91M | 1.82M | 607k | 118k | 12.4k | 1.20k |
-| Lazy.js | 12.2M 🌠 | 2.34M 🌠 | 914k ✨ | 260k ✨ | 29.6k ✨ | 3.14k ✨ |
+| Fluent Streams | 2.54M | 1.93M | 1.12M | 221k | 25.0k | 2.43k |
+| Array | 70.5M ⭐ | 8.67M ⭐ | 4.48M ⭐ | 1.82M ⭐ | 260k ⭐ | 28.4k ⭐ |
+| Sequency | 25.2M ✨ | 5.62M ✨ | 1.74M ✨ | 262k ✨ | 27.1k ✨ | 2.54k ✨ |
+| Lazy.js | 32.7M 🌠 | 6.50M 🌠 | 2.77M 🌠 | 571k 🌠 | 62.8k 🌠 | 6.29k 🌠 |
 
 ### Input is iterable
 | Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
 |---|---|---|---|---|---|---|
-| Fluent Streams | 1.35M | 980k 🌠 | 637k 🌠 | 169k ✨ | 18.8k ✨ | 1.94k ✨ |
-| Array | 1.52M 🌠 | 936k ✨ | 541k ✨ | 199k 🌠 | 25.0k 🌠 | 2.40k 🌠 |
-| Sequency | 1.44M ✨ | 840k | 432k | 112k | 12.9k | 1.26k |
-| Lazy.js | 2.45M ⭐ | 2.10M ⭐ | 1.18M ⭐ | 259k ⭐ | 28.1k ⭐ | 2.83k ⭐ |
+| Fluent Streams | 1.56M | 1.30M | 879k | 218k | 26.0k | 2.75k ✨ |
+| Array | 3.44M 🌠 | 2.26M 🌠 | 1.38M 🌠 | 379k ⭐ | 48.0k ⭐ | 4.83k ⭐ |
+| Sequency | 3.34M ✨ | 2.19M ✨ | 1.13M ✨ | 235k ✨ | 27.1k ✨ | 2.71k |
+| Lazy.js | 5.28M ⭐ | 4.59M ⭐ | 2.10M ⭐ | 320k 🌠 | 32.8k 🌠 | 3.27k 🌠 |
+
