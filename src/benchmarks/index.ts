@@ -1,7 +1,6 @@
 import at from './at';
 import butLast from './butLast';
 import concat from './concat';
-import concatAll from './concatAll';
 import distinct from './distinct';
 import filter from './filter';
 import find from './find';
@@ -30,6 +29,6 @@ fs.mkdirSync(path.dirname(outFile), {
 
 fs.copyFileSync(path.resolve('src', 'benchmarks', 'util', 'intro.md'), outFile);
 
-[at, butLast, concat, concatAll, distinct, filter, find, flatMap, join, map, reduce, sortAt, sortMap, takeLast, zipWithIndex].forEach(benchmark =>
+[at, butLast, concat, distinct, filter, find, flatMap, join, map, reduce, sortAt, sortMap, takeLast, zipWithIndex].forEach(benchmark =>
     fs.appendFileSync(outFile, benchmarkSection(benchmark()))
 );
