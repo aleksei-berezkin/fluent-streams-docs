@@ -4,10 +4,10 @@ import { prettyPrint } from './prettyPrint';
 import { inputN } from './genInput';
 import { first, second, third } from './emojis';
 
-export const benchmarkSection = (r: Result) => `## ${r.name}\n${r.note}${r.note ? '\n' : ''}${inputs.map(input => oneInputTable(r.res, input)).join('\n')}\n`
+export const benchmarkSection = (r: Result) => `## ${r.name}\n\n${r.note}${r.note ? '\n' : ''}${inputs.map(input => oneInputTable(r.res, input)).join('\n')}\n`
 
 const oneInputTable = (res: Result['res'], input: Input) =>
-    `### Input is ${input === 'arr' ? 'array' : 'iterable'}\n${table(res[input])}\n`
+    `### Input is ${input === 'arr' ? 'array' : 'iterable'}\n\n${table(res[input])}\n`
 
 const table = (res: Result['res'][Input]) => {
     const nToTop = entryStream(res)

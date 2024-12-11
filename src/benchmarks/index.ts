@@ -5,6 +5,7 @@ import distinct from './distinct';
 import filter from './filter';
 import find from './find';
 import flatMap from './flatMap';
+import groupBy from './groupBy';
 import join from './join';
 import map from './map';
 import reduce from './reduce';
@@ -29,6 +30,6 @@ fs.mkdirSync(path.dirname(outFile), {
 
 fs.copyFileSync(path.resolve('src', 'benchmarks', 'util', 'intro.md'), outFile);
 
-[at, butLast, concat, distinct, filter, find, flatMap, join, map, reduce, sortAt, sortMap, takeLast, zipWithIndex].forEach(benchmark =>
+[at, butLast, concat, distinct, filter, find, flatMap, groupBy, join, map, reduce, sortAt, sortMap, takeLast, zipWithIndex].forEach(benchmark =>
     fs.appendFileSync(outFile, benchmarkSection(benchmark()))
 );

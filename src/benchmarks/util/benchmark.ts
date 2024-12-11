@@ -15,10 +15,10 @@ export function benchmark(p: {
     name: string,
     note?: string,
     fns: {
-        str: (input: Stream<number>, n: number) => Stream<number | number[]> | number | string | undefined,
-        arr: (input: number[], n: number, canModify: boolean) => number[] | number[][] | number | string | undefined,
-        seq: (input: Sequence<number>, n: number) => Sequence<number | number[]> | number | null | string | undefined,
-        laz: (input: ReturnType<typeof Lazy>, n: number) => {toArray: () => number[] | number[][]} | number | string | undefined,
+        str: (input: Stream<number>, n: number) => Stream<number | number[] | [number, number[]]> | number | string | undefined,
+        arr: (input: number[], n: number, canModify: boolean) => number[] | number[][] | [string, number[]][] | number | string | undefined,
+        seq: (input: Sequence<number>, n: number) => Sequence<number | number[] | [number, number[]]> | number | null | string | undefined,
+        laz: (input: ReturnType<typeof Lazy>, n: number) => {toArray: () => number[] | number[][] | [string, number[]][]} | number | string | undefined,
     },
 }): () => Result {
     return () => {

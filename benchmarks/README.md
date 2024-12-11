@@ -42,7 +42,7 @@ As per [Bundlephobia](https://bundlephobia.com/). Polyfills are not included.
 
 | Lib | Minified | Gzipped |
 |-----|----------|---------|
-| Fluent Streams | 8.2kB 🌠 | 2.5kB 🌠 |
+| Fluent Streams | 8.4kB 🌠 | 2.5kB 🌠 |
 | Array | 0 ⭐ | 0 ⭐ |
 | Sequency | 25.7kB ✨ | 4.4kB ✨ |
 | Lazy.js | 50.4kB | 10kB |
@@ -165,6 +165,24 @@ As per [Bundlephobia](https://bundlephobia.com/). Polyfills are not included.
 | Array | 3.21M ✨ | 1.76M ✨ | 781k 🌠 | 114k ⭐ | 12.0k ⭐ | 1.08k ⭐ |
 | Sequency | 3.30M 🌠 | 2.08M 🌠 | 710k ✨ | 94.7k ✨ | 9.66k 🌠 | 927 🌠 |
 | Lazy.js | 4.85M ⭐ | 3.16M ⭐ | 798k ⭐ | 94.9k 🌠 | 9.48k ✨ | 900 ✨ |
+
+## groupBy
+Using `Object.groupBy()` for Array
+### Input is array
+| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
+|---|---|---|---|---|---|---|
+| Fluent Streams | 6.76M | 1.52M 🌠 | 623k 🌠 | 102k 🌠 | 11.0k 🌠 | 1.09k 🌠 |
+| Array | 9.67M 🌠 | 1.37M ✨ | 355k | 50.6k | 8.07k | 990 |
+| Sequency | 13.9M ⭐ | 1.74M ⭐ | 703k ⭐ | 109k ⭐ | 11.6k ⭐ | 1.04k ✨ |
+| Lazy.js | 7.35M ✨ | 1.07M | 480k ✨ | 76.1k ✨ | 9.79k ✨ | 1.09k ⭐ |
+
+### Input is iterable
+| Lib | 0 | 1 | 10 | 100 | 1000 | 10000 |
+|---|---|---|---|---|---|---|
+| Fluent Streams | 2.88M 🌠 | 1.03M ✨ | 539k 🌠 | 93.0k 🌠 | 10.2k 🌠 | 1.04k ✨ |
+| Array | 2.84M ✨ | 856k | 304k | 46.2k | 7.25k | 899 |
+| Sequency | 3.47M ⭐ | 1.24M 🌠 | 611k ⭐ | 101k ⭐ | 10.4k ⭐ | 1.04k 🌠 |
+| Lazy.js | 1.75M | 1.24M ⭐ | 521k ✨ | 75.2k ✨ | 8.39k ✨ | 1.05k ⭐ |
 
 ## join
 ### Input is array
