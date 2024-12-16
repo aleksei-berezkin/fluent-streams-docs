@@ -4,10 +4,7 @@
   "description": "Generated API docs for https://github.com/aleksei-berezkin/fluent-streams",
   "main": "docs/index.html",
   "scripts": {
-    "doc@readme": "node makeTempReadme.mjs",
-    "doc@doc": "typedoc ../fluent-streams/src --tsconfig ../fluent-streams/tsconfig.json --readme temp-readme.md --excludeNotDocumented --theme default --githubPages true --options ./typedoc.json",
-    "doc@cleanup": "rm temp-readme.md",
-    "doc": "npm-run-all doc@readme doc@doc doc@cleanup",
+    "doc": "typedoc ../fluent-streams/src --tsconfig ../fluent-streams/tsconfig.json --readme ../fluent-streams/README.md --excludeNotDocumented --theme default --githubPages true --options ./typedoc.json",
     "build": "npm-run-all doc",
     "serve": "serve -n docs",
     "start": "npm-run-all build serve",
@@ -39,7 +36,7 @@
     "sequency": "^0.19.2",
     "serve": "^11.3.2",
     "ts-jest": "^26.4.0",
-    "typedoc": "^0.27.3",
+    "typedoc": "^0.27.5",
     "typescript": "^5.7.2"
   }
 }

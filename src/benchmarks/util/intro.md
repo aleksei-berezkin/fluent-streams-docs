@@ -1,4 +1,4 @@
-# Benchmarks
+| Fluent Streams | 8.5+ kB 🌠 | 2.6+ kB 🌠 |# Benchmarks
 
 ## Libraries Compared in These Benchmarks  
 
@@ -42,8 +42,8 @@ As per [Bundlephobia](https://bundlephobia.com/). Polyfills are not included.
 
 | Lib | Minified | Gzipped |
 |-----|----------|---------|
-| Fluent Streams | 8.5kB 🌠 | 2.5kB 🌠 |
+| Fluent Streams | 8.7 kB 🌠 | 2.8 kB 🌠 |
 | Array | 0 ⭐ | 0 ⭐ |
-| Sequency | 25.7kB ✨ | 4.4kB ✨ |
-| Lazy.js | 50.4kB | 10kB |
+| Sequency | 25.7 kB ✨ | 4.4 kB ✨ |
+| Lazy.js | 50.4 kB | 10 kB |
 
