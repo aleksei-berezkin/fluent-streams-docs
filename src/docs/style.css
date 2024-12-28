@@ -1,0 +1,16 @@
+pre {
+    padding-bottom: 5px;
+}
+
+pre code {
+    display: block;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    white-space: pre;
+}
+
+.tsd-signature {
+    border-radius: 0.8em;
+    overflow-x: scroll;
+    white-space: pre;
+}
